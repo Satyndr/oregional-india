@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+/* Weather Widget Styles */
+.weather-widget {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 24px;
+  color: white;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "Poppins", sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-widget:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.weather-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.weather-header {
+  flex: 1;
+}
+
+.city-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.weather-desc {
+  font-size: 14px;
+  opacity: 0.9;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.weather-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.temp-main {
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.temp-range {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.temp-min::after {
+  content: " / ";
+  margin-left: 2px;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.detail-item i {
+  width: 16px;
+  font-size: 14px;
+  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.detail-label {
+  flex: 1;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .weather-widget {
+    max-width: 90%;
+    margin: 16px auto;
+    padding: 20px;
+  }
+
+  .city-name {
+    font-size: 20px;
+  }
+
+  .temp-main {
+    font-size: 40px;
+  }
+
+  .weather-details {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}

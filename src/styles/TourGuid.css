@@ -1,0 +1,50 @@
+.blur-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(4px);
+    top: 0;
+    left: 0;
+    z-index: 999; /* Make sure this is on top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the modal */
+}
+
+.tour-conatiner {
+    position: relative;
+    width: 60vw;
+    height: auto;
+    max-height: 80vh;  /* Limit the height */
+    background-color: rgba(1, 0, 0, 0.9); /* Dark background */
+    border-radius: 20px;
+    padding: 20px;
+    overflow-y: auto; /* Scroll if content is long */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.model-box {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 100; /* Ensure it's above the content */
+}
+
+.text-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
