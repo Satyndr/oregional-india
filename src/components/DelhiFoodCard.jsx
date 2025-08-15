@@ -83,23 +83,17 @@ function DelhiFoodCard(props) {
           <div className="swiper-wrapper">
             {foodData.map((obj) => (
               <div className="swiper-slide post">
-              <img
-                className="post-img"
-                src={obj.images}
-                alt="recipe"
-              />
-              <div className="post-body">
-                <div className="post-detail">
+                <img className="post-img" src={obj.images} alt="recipe" />
+                <div className="post-body">
                   <h2 className="post-name" onClick={() => setShowPopUp(true)}>
                     {obj.name}
                   </h2>
                 </div>
               </div>
-            </div>
-            // {showPopUp && <PopUp onclose={() => setShowPopUp(false)} />}}              
+              // {showPopUp && <PopUp onclose={() => setShowPopUp(false)} />}}
             ))}
           </div>
-          <div className="swiper-scrollbar"></div>
+          {/* <div className="swiper-scrollbar"></div>s */}
         </div>
       </div>
     </div>

@@ -21,22 +21,22 @@ export const WeatherCard = (props) => {
 
       <div className="weather-details">
         <div className="detail-item">
-          <i className="fa-solid fa-temperature-three-quarters"></i>
+          {/* <i className="fa-solid fa-temperature-three-quarters"></i> */}
           <span className="detail-label">Feels like</span>
           <span className="detail-value">{Math.round(props.realFeel)}°C</span>
         </div>
         <div className="detail-item">
-          <i className="fa-solid fa-droplet"></i>
+          {/* <i className="fa-solid fa-droplet"></i> */}
           <span className="detail-label">Humidity</span>
           <span className="detail-value">{props.humidity}%</span>
         </div>
         <div className="detail-item">
-          <i className="fa-solid fa-wind"></i>
+          {/* <i className="fa-solid fa-wind"></i> */}
           <span className="detail-label">Wind</span>
           <span className="detail-value">{props.windSpeed} km/h</span>
         </div>
         <div className="detail-item">
-          <i className="fa-solid fa-gauge-high"></i>
+          {/* <i className="fa-solid fa-gauge-high"></i> */}
           <span className="detail-label">Pressure</span>
           <span className="detail-value">{props.pressure} hPa</span>
         </div>

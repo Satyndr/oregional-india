@@ -98,24 +98,23 @@ function CityPage() {
           <img src={cityData.famousPlaces[1].images} alt="Famous Place" />
         )}
         {cityData && <h1>{cityData.cityName}</h1>}
+        {/* Display Weather Information only if cityData exists */}
+        {cityData && weatherData && (
+          <WeatherCard
+            city={weatherData.name}
+            temperature={weatherData.main.temp}
+            minTemp={weatherData.main.temp_min}
+            maxTemp={weatherData.main.temp_max}
+            realFeel={weatherData.main.feels_like}
+            humidity={weatherData.main.humidity}
+            windSpeed={weatherData.wind.speed}
+            pressure={weatherData.main.pressure}
+            forecast={weatherData.weather[0].description}
+          />
+        )}
       </div>
 
-      {/* Display Weather Information only if cityData exists */}
-      {cityData && weatherData && (
-        <WeatherCard
-          city={weatherData.name}
-          temperature={weatherData.main.temp}
-          minTemp={weatherData.main.temp_min}
-          maxTemp={weatherData.main.temp_max}
-          realFeel={weatherData.main.feels_like}
-          humidity={weatherData.main.humidity}
-          windSpeed={weatherData.wind.speed}
-          pressure={weatherData.main.pressure}
-          forecast={weatherData.weather[0].description}
-        />
-      )}
-
-      <div className="app">
+      {/* <div className="app">
         <h1>Location Information</h1>
         {error && <p className="error">{error}</p>}
         {locationData && (
@@ -141,7 +140,7 @@ function CityPage() {
         ) : (
           <p>No nearby places to display.</p>
         )}
-      </div>
+      </div> */}
 
       {cityData ? (
         <>
@@ -159,8 +158,9 @@ function CityPage() {
             <DelhiFoodCard data={cityData.foods} />
           </div>
 
+          {/* <div className="poster"></div> */}
+
           <div className="page3">
-            <div className="poster"></div>
             {showPopUp && <TourGuid onclose={() => setShowPopUp(false)} />}
             <p className="popular">Best Places to Visit</p>
             <div className="hidden-text">

@@ -1,41 +1,83 @@
 import "../styles/SearchPage.css";
 import PropTypes from "prop-types";
-// import { getCityData } from '../services/operations/cityAPI';
-import { getCityData } from "../services/operations/cityFire";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { getCityData, getAllCities } from "../services/operations/cityFire";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import useDebounce from "../utils/helper";
 
 const SearchPage = ({ onClose }) => {
   const [cities, setCities] = useState([]);
-  const [cityName, setCityName] = useState(""); // State for the input value
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const navigate = useNavigate(); // Initialize useNavigate for routing
+  const [allCities, setAllCities] = useState([]);
+  const [cityName, setCityName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  const debouncedSearchTerm = useDebounce(cityName, 500);
+
+  useEffect(() => {
+    //set the focus to input box
+    inputRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllCities = async () => {
+      try {
+        setIsLoading(true);
+        const citiesData = await getAllCities();
+        setAllCities(citiesData);
+      } catch (error) {
+        console.log("Error fetching cities:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchAllCities();
+  }, []);
+
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length > 0) {
+      const filteredCities = allCities.filter((city) =>
+        city.cityName?.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+      );
+      setSuggestions(filteredCities);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [debouncedSearchTerm, allCities]);
+
+  const handleCitySelect = (selectedCity) => {
+    setCityName(selectedCity.cityName);
+    setShowSuggestions(false);
+    navigate(`/${selectedCity.cityName}`, {
+      state: { cityData: selectedCity },
+    });
+    onClose();
+  };
 
   const handleSearch = async () => {
     if (cityName) {
-      // Fetch data only if cityName is not empty
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
       try {
         const response = await getCityData(cityName);
-        // const citiesList = response.data.cityData;
         const citiesList = response;
 
-        // Check if city data exists, and navigate accordingly
         if (citiesList) {
           setCities(citiesList);
-          // Navigate to the city route and pass the city data
           navigate(`/${cityName}`, { state: { cityData: citiesList } });
         } else {
-          // Navigate to the city route but without data (will show "No data")
           navigate(`/${cityName}`, { state: { cityData: null } });
         }
 
-        // Close the search page after navigating
         onClose();
       } catch (error) {
         console.log("error: ", error);
       } finally {
-        setIsLoading(false); // Stop loading after search completes
+        setIsLoading(false);
       }
     }
   };
@@ -59,17 +101,24 @@ const SearchPage = ({ onClose }) => {
         <input
           type="text"
           value={cityName}
-          onChange={(e) => setCityName(e.target.value)}
+          ref={inputRef}
+          onChange={(e) => {
+            setCityName(e.target.value);
+            setShowSuggestions(true);
+          }}
           placeholder="Search city..."
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
               handleSearch();
             }
+            if (e.key === "Escape") {
+              setShowSuggestions(false);
+            }
           }}
+          onFocus={() => cityName && setShowSuggestions(true)}
         />
         {isLoading ? (
-          // Show loading spinner when searching
           <div className="spinner"></div>
         ) : (
           <button type="submit">
@@ -77,6 +126,33 @@ const SearchPage = ({ onClose }) => {
           </button>
         )}
       </form>
+
+      {showSuggestions && (
+        <div className="suggestions-container">
+          {suggestions.length > 0 ? (
+            <ul className="suggestions-list">
+              {suggestions.map((city, index) => (
+                <li
+                  key={index}
+                  className="suggestion-item"
+                  onClick={() => handleCitySelect(city)}
+                >
+                  <span>{city.cityName}</span>
+                  {city.state && (
+                    <span className="city-state">, {city.state}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            cityName && (
+              <div className="no-suggestions">
+                No cities found matching "{cityName}"
+              </div>
+            )
+          )}
+        </div>
+      )}
     </div>
   );
 };

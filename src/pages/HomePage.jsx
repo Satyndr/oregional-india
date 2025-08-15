@@ -25,7 +25,7 @@ const HomePage = () => {
         <FestiveCards />
         <div className="page-button-div">
           <button className="page-button-div-button" onClick={toggleSearch}>
-            Seach you place
+            Search you place
           </button>
         </div>
       </div>
