@@ -1,92 +1,95 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo_crop.png';
-import '../styles/Nav.css';
-import SearchPage from './SearchPage';
-import { handleLogOut } from '../services/operations/authFire';
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from "../assets/images/logo_crop.png";
+import "../styles/Nav.css";
+import SearchPage from "./SearchPage";
+import { handleLogOut } from "../services/operations/authFire";
 
-  const Nav = () => {
-    const { isAuthenticated, role } = useSelector((state) => state.auth);
-    // console.log("Autheticated: ", isAuthenticated);
-    // console.log("User Account: ", role);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+const Nav = () => {
+  const { isAuthenticated, role } = useSelector((state) => state.auth);
+  // console.log("Autheticated: ", isAuthenticated);
+  // console.log("User Account: ", role);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const toggleSearch = () => {
-      setIsSearchVisible((prev) => !prev); // Safely toggle state
-    };
+  const toggleSearch = () => {
+    setIsSearchVisible((prev) => !prev); // Safely toggle state
+  };
 
-    const handleLogOutFun = () =>{
-      handleLogOut(dispatch, navigate);
-    }
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
 
-    return (
-      <div className="nav-bar">
-        <div className="nav1">
-          <li>Experiences ▾</li>
-          <li>Explore ▾</li>
-          <li>Travel ▾</li>
-        </div>
-        <Link to="/"><img src={logo} alt="logo" id='logo'/></Link>
-        
-        <div className="nav3">
-          <button onClick={toggleSearch}>
-            <i className="ri-search-2-line"></i>
-          </button>
-          {/* <i className="ri-login-box-line"></i> */}
+  const handleLogOutFun = () => {
+    handleLogOut(dispatch, navigate);
+  };
 
-          {isAuthenticated ? 
-          
-          (
+  return (
+    <div className="nav-bar">
+      <div className="nav1">
+        <li>Experiences ▾</li>
+        <li>Explore ▾</li>
+        <li>Travel ▾</li>
+      </div>
+
+      <Link to="/" className="logo-container">
+        <img src={logo} alt="logo" id="logo" />
+      </Link>
+
+      {/* Search button - always visible */}
+      <button onClick={toggleSearch} className="search-btn">
+        <i className="ri-search-2-line"></i>
+      </button>
+
+      {/* Hamburger Menu Button */}
+      <button className="hamburger-menu" onClick={toggleMobileMenu}>
+        <i className={isMobileMenuOpen ? "ri-close-line" : "ri-menu-line"}></i>
+      </button>
+
+      <div className={`nav3 ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
+        <div className="auth-buttons">
+          {isAuthenticated ? (
             <>
-              {role === 'Tourist' &&
+              {role === "Tourist" && (
                 <Link to="/tourist-dashboard">
-                  <button className="log-button">
-                     Dashboard
-                  </button>
+                  <button className="log-button">Dashboard</button>
                 </Link>
-              }
-              {role === 'Tour Guide' &&
+              )}
+              {role === "Tour Guide" && (
                 <Link to="/tour-guide-dashboard">
-                  <button className="log-button">
-                    Dashboard
-                  </button>
+                  <button className="log-button">Dashboard</button>
                 </Link>
-              }
-              {role === 'Business' &&
+              )}
+              {role === "Business" && (
                 <Link to="/business-dashboard">
-                  <button className="log-button">
-                    Dashboard
-                  </button>
+                  <button className="log-button">Dashboard</button>
                 </Link>
-              }
-              <button onClick={handleLogOutFun} className='log-button'>
+              )}
+              <button onClick={handleLogOutFun} className="log-button">
                 Log Out
               </button>
             </>
-          ):(
+          ) : (
             <>
-            <Link to={"/signup"}>
-                  <button className="log-button">
-                    Sign Up
-                  </button>
-            </Link>
-            <Link to={"/login"}>
-                  <button className="log-button">
-                    Login
-                  </button>
-            </Link>
+              <Link to={"/signup"}>
+                <button className="log-button">Sign Up</button>
+              </Link>
+              <Link to={"/login"}>
+                <button className="log-button">Login</button>
+              </Link>
             </>
           )}
-
         </div>
-        {isSearchVisible && <SearchPage onClose={toggleSearch} />}
       </div>
-    );
-  };
 
-  export default Nav;
+      {isSearchVisible && <SearchPage onClose={toggleSearch} />}
+    </div>
+  );
+};
+
+export default Nav;
