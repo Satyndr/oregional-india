@@ -1,11 +1,5 @@
 import "./App.css";
 import Nav from "./components/Nav";
-import video from "./assets/images/heroVideo.mp4";
-import DestinationCards from "./components/DesitnationCards";
-import FestiveCards from "./components/FestiveCards";
-import CardCollection from "./components/CardCollection";
-import Footer from "./components/Footer";
-import FoodCards from "./components/FoodCards";
 import SearchPage from "./components/SearchPage";
 import CityPage from "./components/CityPage";
 import TouristDashboard from "./components/core/Dashboard/TouristDashboard";
@@ -80,7 +74,7 @@ function App() {
 
   // Display a loading spinner until role is fetched
   if (loading) {
-    return <>Loading..............</>;
+    return <></>;
   }
 
   return (

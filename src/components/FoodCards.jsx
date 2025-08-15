@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import '../styles/FoodCards.css';
+import React, { useEffect, useRef } from "react";
+import "../styles/FoodCards.css";
 
 function FoodCards() {
   // Create a ref to access the card slider container
@@ -10,7 +10,8 @@ function FoodCards() {
 
     // Function to update button state based on scroll position
     function updateButtonState() {
-      const scrolledToEnd = container.scrollLeft + container.offsetWidth >= container.scrollWidth;
+      const scrolledToEnd =
+        container.scrollLeft + container.offsetWidth >= container.scrollWidth;
       // Here, you could add logic to disable/enable buttons if needed
       // or perform some other UI changes when scrolling
       // console.log('Scrolled to end:', scrolledToEnd);

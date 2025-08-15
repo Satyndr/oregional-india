@@ -6,7 +6,8 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   display: block; /* Or use default styles */
   height: auto;
 }
@@ -16,10 +17,11 @@ button {
   cursor: pointer;
 }
 
-.main-slider{
+.main-slider {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: 25vh;
 }
 
 /* .container {
@@ -102,7 +104,7 @@ button {
     margin: auto;
     padding: 10px;
   }
-  
+
   .card-wrapper img {
     height: 100px;
     width: 80px;
