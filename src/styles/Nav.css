@@ -47,14 +47,14 @@ body {
 /* Logo */
 .logo-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex: 1;
 }
 
 #logo {
-  width: 18rem;
-  max-width: 200px;
+  width: 15rem;
+  /* max-width: 200px; */
   height: auto;
 }
 
